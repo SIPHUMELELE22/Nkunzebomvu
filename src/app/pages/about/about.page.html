@@ -1,0 +1,39 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title>About</ion-title>
+    <ion-buttons slot="end" mode="md" [routerLink]="['/home']">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="profile-header">
+    <img src="assets/slides/Logo.jpg" alt="Profile Image" class="profile-image">
+    <h2 class="profile-name">Nkunzebomvu Herbs</h2>
+    <p class="profile-bio">Traditional Healer</p>
+  </div>
+
+  <ion-card class="profile-details">
+    <ion-card-header>
+      <ion-card-title>About Nkunzebomvu</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>At Nkunzebomvu we have an array of various African indigenous herbs which are organic with no side effect when used. Our products manufactured out of natural plants and trees purified packaged professionally in order to give satisfaction to our clients, this is done under homeopath basic principles.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="profile-skills">
+    <ion-card-header>
+      <ion-card-title>Services</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-chip color="primary">Traditional Healer</ion-chip>
+      <ion-chip color="primary">Sell Herbs</ion-chip>
+      <ion-chip color="primary">Siyahlola</ion-chip>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

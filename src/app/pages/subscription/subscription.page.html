@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Billing & Subscription</ion-title>
+    <ion-buttons slot="end" mode="md" [routerLink]="['/home']">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-card>
+  <div style="text-align: center;">
+    <img src="assets/slides/Logo.jpg" alt="Profile Image" width="200" height="200">
+  </div>
+  <ion-card-content>
+    <div style="text-align: center; margin-bottom: 20px;">
+      <h2>Subscribe to our Plan</h2>
+      <p>Get our subscription plan at <strong>R150 per month</strong></p>
+    </div>
+    <form style="display: flex; flex-direction: column; align-items: center;">
+      <ion-item lines="none" style="width: 100%; margin-bottom: 10px;">
+        <ion-input type="email" placeholder="Enter your email" required></ion-input>
+      </ion-item>
+      <ion-item lines="none" style="width: 100%; margin-bottom: 10px;">
+        <ion-input type="number" placeholder="Card Number" required></ion-input>
+      </ion-item>
+      <ion-item lines="none" style="width: 100%; margin-bottom: 10px;">
+        <ion-input type="number" placeholder="MM/YY" required></ion-input>
+      </ion-item>
+      <ion-item lines="none" style="width: 100%; margin-bottom: 20px;">
+        <ion-input type="number" placeholder="CVV" required></ion-input>
+      </ion-item>
+      <ion-button expand="block" shape="round" type="submit">Subscribe</ion-button>
+    </form>
+  </ion-card-content>
+</ion-card>
+</ion-content>
+

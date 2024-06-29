@@ -1,0 +1,156 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title>Checkout</ion-title>
+    <ion-buttons slot="end" mode="md" [routerLink]="['/', 'home','cart']">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      
+    </ion-col>
+  </ion-row>
+  @if (model) {
+    <ion-item lines="none" class="total-item">
+      <ion-label> {{model?.totalItem}} items in Cart </ion-label>
+      <ion-button fill="clear" slot="end" color="danger" size="medium" (click)="cartService.clearCart()">
+        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    @for(item of model?.items; track $index) {
+      <ion-card class="cart-item">
+        <ion-item lines="none">
+          <ion-thumbnail slot="start">
+            <ion-img [src]="item?.cover"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <strong> {{item?.name}} </strong>
+            <p class="price">
+              <ion-text color="dark">
+                <span> {{cartService.currency}} </span>
+                <strong> {{item?.price}} </strong>
+              </ion-text>
+            </p>  
+          </ion-label>
+
+          <ion-col slot="end" size="2" class="ion-text-center">
+            <ion-row>
+              <ion-button color="dark" (click)="cartService.addQuantity(item)">
+                <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-row>
+            <ion-row class="quantity">
+              <ion-text>
+                <strong> {{item?.quantity}} </strong>
+              </ion-text>
+            </ion-row>
+            <ion-row>
+              <ion-button color="dark" (click)="cartService.subtractQuantity(item)">
+                <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-row>
+          </ion-col>
+        </ion-item>
+      </ion-card>
+    }
+    <ion-list lines="none" class="billing">
+      <ion-list-header>
+        <ion-label color="danger">Bill Details:</ion-label>
+      </ion-list-header>
+      <ion-item-group>
+        <ion-item>
+          <ion-label color="dark">Item Total:</ion-label>
+          <ion-text slot="end" colo="dark"> {{cartService.currency}}{{model?.totalPrice | number: '0.2-2'}} </ion-text>
+        </ion-item>
+        <ion-item class="delivery-fee">
+          <ion-label color="dark">Delivery Fee:</ion-label>
+          <ion-text slot="end" color="dark">{{cartService.currency}}{{model?.total_delivery_charge}}</ion-text>
+        </ion-item>
+        <ion-item class="dashedBorderTop">
+          <ion-label color="dark"><strong>Total to Pay:</strong></ion-label>
+          <ion-text slot="end" color="dark"><strong>{{cartService.currency}}{{model?.grandTotal | number: '0.2-2'}}</strong></ion-text>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  } @else {
+    <div class="empty-screen" [align]="'center'">
+      <ion-icon name="bag-handle-outline" color="danger"></ion-icon>
+      <p>No Item Available</p>
+    </div>
+  }
+
+  <ion-list class="billing-address">
+    <ion-list-header>
+      <ion-label color="danger">Delivery Address:</ion-label>
+    </ion-list-header>
+    <form>
+      <ion-item-group>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">First Name:</ion-label>
+              <ion-input [(ngModel)]="billingAddress.firstName" name="firstName" type="text" required=""></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">Last Name:</ion-label>
+              <ion-input [(ngModel)]="billingAddress.lastName" name="lastName" type="text" required=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating">Address Line 1:</ion-label>
+            <ion-input [(ngModel)]="billingAddress.addressLine1" name="addressLine1" labelPlacement="stacked" type="text" required=""></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-item>
+            <ion-label position="floating">Address Line 2:</ion-label>
+            <ion-input [(ngModel)]="billingAddress.addressLine2" name="addressLine2" type="text"></ion-input>
+          </ion-item>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">City:</ion-label>
+              <ion-input [(ngModel)]="billingAddress.city" name="city" type="text" required=""></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">State/Province:</ion-label>
+              <ion-input [(ngModel)]="billingAddress.state" name="state" type="text" required=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">Postal Code:</ion-label>
+              <ion-input [(ngModel)]="billingAddress.postalCode" name="postalCode" type="number" required=""></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col size="6">
+            <ion-item>
+              <ion-label position="floating">Country:</ion-label>
+              <ion-input [(ngModel)]="billingAddress.country" name="country" type="text" required=""></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-item-group>
+      <ion-button [routerLink]="['/order-summary']" type="submit" expand="block" shape="round" mode="ios" (click)="saveBillingAddress()">
+        Complete Order
+      </ion-button>
+    </form>
+  </ion-list>
+</ion-content>
+

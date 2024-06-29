@@ -1,0 +1,39 @@
+<ion-content [fullscreen]="true">
+  <ion-header>
+    <ion-toolbar color="danger">
+      <ion-title>Orders</ion-title>
+      <ion-buttons slot="end" mode="md" [routerLink]="['/home']">
+        <ion-button>
+          <ion-icon name="chevron-back-outline"></ion-icon>
+          <ion-label>Back</ion-label>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-datetime-button datetime="datetime"></ion-datetime-button>
+    <ion-modal [keepContentsMounted]="true">
+      <ng-template>
+        <ion-datetime id="datetime"></ion-datetime>
+      </ng-template>
+    </ion-modal> 
+    <div>
+      <!-- <img src="assets/slides/completed.png" alt=""> -->
+      <ion-card-content>
+        <ion-item>
+          <ion-avatar slot="start">
+            <ion-img src="assets/slides/completed.png" />
+          </ion-avatar>
+          <ion-label>
+              <p><strong>ORDER ID: #123456</strong></p>
+              <p>Order Completed</p>           
+          </ion-label>
+        </ion-item>
+      </ion-card-content>
+      <ion-button slot="end" fill="clear">
+        <ion-icon name="eye-outline" slot="start" color="danger"></ion-icon>
+        View Order
+      </ion-button>
+    </div>
+  </ion-card>
+</ion-content>

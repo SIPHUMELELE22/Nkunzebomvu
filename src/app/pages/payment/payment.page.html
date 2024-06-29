@@ -1,0 +1,34 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title>Payment</ion-title>
+    <ion-buttons slot="end" mode="md" [routerLink]="['/order-summary']">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-img src="assets/slides/card1.jpeg"></ion-img>
+  <div class="ion-padding">
+    <form> 
+      <ion-item>
+        <ion-input [(ngModel)]="paymentInfo.fullName" name="fullName" type="text" class="input" placeholder="Full Name" required=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="paymentInfo.cardNumber" name="cardNumber" type="number" class="input" placeholder="Card number"  required=""></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="paymentInfo.expiryDates" name="expiryDates" type="number" class="input" placeholder="MM/YY"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="paymentInfo.cardVerification" name="cardVerification" type="number" class="input" placeholder="CVV"></ion-input>
+      </ion-item>
+        <ion-button (click)="addPayment()" expand="block" shape="round" color="danger" mode="ios">
+          Submit Payment
+        </ion-button>
+   </form>
+  </div>
+</ion-content>

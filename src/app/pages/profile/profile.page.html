@@ -1,0 +1,40 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title>Profile</ion-title>
+    <ion-buttons slot="end" mode="md" [routerLink]="['/home']">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div style="text-align: center;" class="ion-padding">
+      <ion-avatar style="display: inline-block; margin: 0 auto; font-size: 32px;">
+        <ion-img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" /><br>
+      </ion-avatar>
+      <form>
+        <ion-item>
+          <ion-label position="stacked">Name:</ion-label>
+          <ion-input disabled="" type="text" value="{{regInfo.name}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Email:</ion-label>
+          <ion-input disabled="" type="text" value="{{regInfo.email}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Phone Number:</ion-label>
+          <ion-input disabled="" type="tel" value="{{regInfo.phoneNumber}}"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Password:</ion-label>
+          <ion-input disabled="" type="password" value="{{regInfo.password1}}"></ion-input>
+        </ion-item>
+      </form>
+      <p>
+        <br><ion-button (click)="signOut()" expand="block" shape="round">Sign Out</ion-button>
+      </p>
+    </div>
+</ion-content>

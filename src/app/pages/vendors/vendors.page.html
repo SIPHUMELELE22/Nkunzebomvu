@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-title>Vendors</ion-title>
+    <ion-buttons slot="end" mode="md" [routerLink]="['/home']">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div  *ngFor="let vendor of vendorList">
+
+  <ion-card>
+    <img src="assets/slides/Logo.jpg" alt="" *ngIf="vendor?.image">
+    <ion-card-header size="large" color="danger">Vendor Info:{{vendor.name}} </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-img scrr="" />
+        </ion-avatar>
+        <ion-label>
+          <!-- <p><strong><ion-text>Vendor Name: </ion-text>{{vendor.name}}</strong></p> -->
+          <p><strong> <ion-text>Phone Number: </ion-text></strong>
+            {{vendor.phoneNumber}}</p>
+         <p><strong> <ion-text>Description: </ion-text></strong>
+          {{vendor.description}}</p> 
+         <p><strong> <ion-text>Address: </ion-text></strong>
+          {{vendor.address}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+    <ion-row>
+      <ion-col>
+        <ion-button fill="clear" expand="block">
+          <ion-icon name="create-outline" slot="start" color="danger"></ion-icon>
+          Edit
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button fill="clear"  expand="block">
+          <ion-icon name="trash-outline" slot="start" color="danger"></ion-icon>
+          Delete
+        </ion-button>
+      </ion-col>
+    
+   
+  </ion-row>
+
+  </ion-card>
+</div>
+
+</ion-content>

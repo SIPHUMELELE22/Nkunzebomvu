@@ -1,20 +1,170 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Nkunzebomvu Herbals</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button menu="main-menu"></ion-menu-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" size="large" color="dark" [routerLink]="['/', 'home', 'cart']">
+        <ion-icon name="bag-handle" slot="icon-only"></ion-icon>
+        @if(totalItems > 0) {
+        <ion-badge size="medium">
+          <ion-text>{{totalItems}}</ion-text>
+        </ion-badge>
+        }
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
+    <ion-searchbar debounce="800" #searchInput mode="ios" placeholder="Search products..."
+      (ionInput)="onSearchChange($event)">
+    </ion-searchbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-content id="container">
+  <div>
+    <swiper-container class="swiper-container" [loop]="true" pagination="true" pagination-clickable="true"
+       space-between="10" centered-slides="true" autoplay-delay="2500"
+      autoplay-disable-on-interaction="false">
+      <swiper-slide *ngFor="let image of sliderImages" class="swiper-images-wrapper">
+        <ion-img class="slider-image" [src]="image.image" />
+      </swiper-slide>
+    </swiper-container>
   </div>
+
+  <ion-row>
+    <ion-col class="buttons">
+      <ion-button id="vendorModal" shape="round" size="medium">
+        <ion-text>Register as A Vendor</ion-text>
+      </ion-button>
+
+      <ion-modal #vendorModal trigger="vendorModal">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Register as a Vendor</ion-title>
+              <ion-buttons slot="end" mode="ios">
+                <ion-button (click)="vendorModal.dismiss()">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <div class="ion-padding">
+            <ion-list class="vendorInfo">
+              <ion-list-header>
+                <ion-label>Connect with Buyers - Join Our Vendor Network!</ion-label>
+              </ion-list-header>
+              <form [formGroup]="vendorForm" (ngSubmit)="addVendor()">
+                  
+                    <ion-item>
+                      <ion-input formControlName="name" name="name" placeholder="Firstname & Lastname"
+                        required=""></ion-input>
+                        <ion-icon color="dark" name="person-outline"></ion-icon>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-input formControlName="phoneNumber" name="phoneNumber" type="tel" class="input"
+                        placeholder="Phone number" required=""></ion-input>
+                        <ion-icon color="dark" name="call-outline"></ion-icon>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-input class="input" type="text" label="Upload Image" placeholder="upload photo">
+                        </ion-input>
+                        <ion-button  (click)="openActionSheet()">
+                          <ion-icon color="dark" name="camera-outline" ></ion-icon>
+                        </ion-button>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-textarea formControlName="description" name="description" [autoGrow]="true" rows="3"
+                        name="description" class="input" placeholder="Describe your services"></ion-textarea>
+                    </ion-item>
+
+                    <ion-item>
+                      <ion-textarea formControlName="address" name="address" [autoGrow]="true" rows="4" class="input"
+                        placeholder="Address"></ion-textarea>
+                    </ion-item>
+                    <ion-footer>
+                    <ion-button type="submit" shape="round" expand="block" [strong]="true" mode="ios">
+                      <ion-text>Become A Vendor</ion-text>
+                    </ion-button>
+                </ion-footer>
+              </form>
+            </ion-list>
+          </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ion-col>
+    <ion-col class="buttons">
+      <ion-button id="appointmentModal" shape="round" size="medium">
+        <ion-text> Book an Appointment </ion-text>
+      </ion-button>
+      <ion-modal #appointmentModal trigger="appointmentModal">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Appointments</ion-title>
+              <ion-buttons slot="end" mode="ios">
+                <ion-button (click)="appointmentModal.dismiss()">Close</ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <ion-list class="appointmentData">
+              <ion-list-header>
+                <ion-label>Book an Appointment - Secure your spot today!</ion-label>
+              </ion-list-header>
+              <form>
+                <div class="ion-padding">
+                  <ion-item>
+                    <ion-input [(ngModel)]="appointmentData.name" name="name" class="input" placeholder="Name"
+                      required=""></ion-input>
+                    <ion-icon color="dark" name="person-outline"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-input [(ngModel)]="appointmentData.phoneNumber" name="phoneNumber" type="tel"
+                      placeholder="Phone number" required=""></ion-input>
+                    <ion-icon color="dark" name="call-outline"></ion-icon>
+                  </ion-item>
+                  <ion-item>
+                    <ion-input [(ngModel)]="appointmentData.date" name="date" type="date"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-textarea [autoGrow]="true" [(ngModel)]="appointmentData.message" rows="3" name="message"
+                      placeholder="Message"></ion-textarea>
+                  </ion-item>
+                </div>
+          <ion-footer>
+              <ion-button type="submit" (click)="saveAppointment()" shape="round" expand="block" [strong]="true"
+                mode="ios">
+                <ion-text>Book an Appointment</ion-text>
+              </ion-button>
+          </ion-footer>
+              </form>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    @for(item of items; track i; let i = $index){
+    <ion-col sizeLg="3" sizeMd="4" sizeSm="6" sizeXl="3" sizeXs="6">
+      <ion-card [routerLink]="['/', 'home', 'products', item?.id]">
+        <ion-thumbnail>
+          <ion-img [src]="item?.cover"></ion-img>
+        </ion-thumbnail>
+        <ion-label>
+          <ion-text color="dark"><strong>{{item?.name}}</strong></ion-text>
+          <p>
+            <ion-text color="dark">
+              {{cartService.currency}}<strong> {{item?.price}}</strong>
+            </ion-text>
+          </p>
+        </ion-label>
+      </ion-card>
+    </ion-col>
+    }
+  </ion-row>
 </ion-content>

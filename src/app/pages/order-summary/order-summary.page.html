@@ -1,0 +1,79 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="danger">
+    <ion-title>Order Summary</ion-title>
+    <ion-buttons slot="end" mode="md" [routerLink]="['/checkout']">
+      <ion-button>
+        <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content> 
+        @for(item of model?.items; track $index) {
+          <ion-card class="cart-item">
+            <ion-item lines="none">
+              <ion-thumbnail slot="start">
+                <ion-img [src]="item?.cover"></ion-img>
+              </ion-thumbnail>
+              <ion-label>
+                <strong> {{item?.name}} </strong>
+                <p class="price">
+                  <ion-text color="dark">
+                    <span> {{cartService.currency}} </span>
+                    <strong> {{item?.price}} </strong>
+                  </ion-text>
+                </p>  
+              </ion-label>
+
+              <ion-col slot="end" size="2" class="ion-text-center">
+                <ion-row class="quantity">
+                  <ion-text>
+                    <strong> {{item?.quantity}} </strong>
+                  </ion-text>
+                </ion-row>
+              </ion-col>
+            </ion-item>
+          </ion-card>
+        }
+        <ion-list lines="none" class="billing">
+          <ion-list-header>
+            <ion-label style="color: #9D0A10;">Bill Details:</ion-label>
+          </ion-list-header>
+          <ion-item-group>
+            <ion-item>
+              <ion-label color="dark">Item Total:</ion-label>
+              <ion-text slot="end" colo="dark"> {{cartService.currency}}{{model?.totalPrice | number: '0.2-2'}} </ion-text>
+            </ion-item>
+            <ion-item class="delivery-fee">
+              <ion-label color="dark">Delivery Fee:</ion-label>
+              <ion-text slot="end" color="dark">{{cartService.currency}}{{model?.total_delivery_charge}}</ion-text>
+            </ion-item>
+            <ion-item class="dashedBorderTop">
+              <ion-label color="dark"><strong>Total to Pay:</strong></ion-label>
+              <ion-text slot="end" color="dark"><strong>{{cartService.currency}}{{model?.grandTotal | number: '0.2-2'}}</strong></ion-text>
+            </ion-item>
+          </ion-item-group>
+        </ion-list>
+
+        <ion-list>
+          <ion-list-header>
+            <ion-label style="color: #9D0A10;">Delivery Address:</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>
+              <p> <strong>{{ billingAddress.firstName }} {{ billingAddress.lastName }}</strong></p>
+              <p>{{ billingAddress.addressLine1 }}</p>
+              <p *ngIf="billingAddress.addressLine2">{{ billingAddress.addressLine2 }}</p>
+              <p>{{ billingAddress.city }}, {{ billingAddress.state }}</p>
+              <p> {{ billingAddress.postalCode }}</p>
+              <p>{{ billingAddress.country }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-button expand="block" shape="round" mode="ios" (click)="completeOrder()" [routerLink]="['/payment']">
+            Complete Order
+          </ion-button>
+        </ion-list>
+</ion-content>
+
